@@ -3,12 +3,11 @@ import ballerina/log;
 
 type CentralAPIConfig record {|
     string url;
-    string certPath;
 |};
 
 configurable CentralAPIConfig centralConf = ?;
 
-final http:Client centralApiClient = check new (centralConf.url, secureSocket = {cert: centralConf.certPath});
+final http:Client centralApiClient = check new (centralConf.url, secureSocket = {enable: false});
 
 service /repository/ballerina\-central on new http:Listener(9090) {
 
